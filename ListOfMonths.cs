@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ListImplementation
 {
-    class ListofMonths<Int32>
+    class ListofMonths
     {
         private int[] _items = new int[12] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
@@ -73,6 +74,42 @@ namespace ListImplementation
                         break;
                     default: throw new ArgumentOutOfRangeException();
                 }
+            }
+        }
+
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(_items, 12);
+        }
+
+        public class Enumerator
+        {
+            private int _size;
+            private int count = 0;
+            private int[] _items;
+
+            public Enumerator(int[] items, int size)
+            {
+                _items = items;
+                _size = size;
+            }
+
+            public object Current
+            {
+                get
+                {
+                    return _items[count++];
+                }
+            }
+
+            public bool MoveNext()
+            {
+                return count < _size;
+            }
+
+            public void Reset()
+            {
+                throw new NotImplementedException();
             }
         }
     }

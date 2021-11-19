@@ -7,13 +7,17 @@ namespace ListImplementation
         static void Main(string[] args)
         {
 
-            ListofMonths<int> months = new ListofMonths<int>();
+            ListofMonths months = new ListofMonths();
 
             Console.Write("Please enter name of month to see the month number: ");
             string name = Console.ReadLine();
 
             Console.WriteLine($"The number of {name} is {months[name]}");
 
+            foreach (var item in months)
+            {
+                Console.WriteLine(item);
+            }
 
             //create new _List with capacity 10
             _List<Int32> _list = new _List<int>(10);
