@@ -16,8 +16,11 @@ namespace ListImplementation
 
             foreach (var item in months)
             {
-                Console.WriteLine(item);
+                Console.Write(item);
+                Console.Write(" ");
             }
+
+            Console.WriteLine();
 
             //create new _List with capacity 10
             _List<Int32> _list = new _List<int>(10);
@@ -34,6 +37,14 @@ namespace ListImplementation
             _list.Add(12);
             _list.Add(8);
 
+            foreach (var item in _list)
+            {
+                Console.Write(item);
+                Console.Write(" ");
+            }
+
+            Console.WriteLine();
+
             Console.WriteLine($"there are {_list.Count} elements in the _list");
             Console.WriteLine($"index of element {_list[2]} is: {_list.IndexOf(_list[2])}");
             Console.WriteLine($"index of element {_list[3]} is: {_list.IndexOf(_list[3], 2)}");
@@ -42,9 +53,10 @@ namespace ListImplementation
             _list.Insert(4, 200);
             _list.Remove(12);
 
-            for (int i = 0; i < _list.Count; i++)
+            foreach (var item in _list)
             {
-                Console.WriteLine(_list[i]);
+                Console.Write(item);
+                Console.Write(" ");
             }
 
             Console.ReadLine();

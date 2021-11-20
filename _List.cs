@@ -14,6 +14,28 @@ namespace ListImplementation
         private int _version;
         static readonly int[] _emptyArray = new int[0];
 
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(_items, _size);
+        }
+
+        public class Enumerator
+        {
+            private int[] _items;
+            private int _size;
+            private int _count = 0;
+            public Enumerator(int[] items, int size)
+            {
+                _items = items;
+                _size = size;
+            }
+            public int Current { get => _items[_count++];}
+            public bool MoveNext()
+            {
+                return _count < _size;
+            }
+        }
+
         public _List()
         {
             _items = _emptyArray;
