@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ListImplementation
 {
-    public class _List<Int32>
+    public class _List<T>
     {
         public const int _defaultCapacity = 4;
-        private int[] _items;
+        private T[] _items;
         private int _size;
         private int _version;
-        static readonly int[] _emptyArray = new int[0];
+        static readonly T[] _emptyArray = new T[0];
 
         public Enumerator GetEnumerator()
         {
@@ -21,15 +21,15 @@ namespace ListImplementation
 
         public class Enumerator
         {
-            private int[] _items;
+            private T[] _items;
             private int _size;
             private int _count = 0;
-            public Enumerator(int[] items, int size)
+            public Enumerator(T[] items, int size)
             {
                 _items = items;
                 _size = size;
             }
-            public int Current { get => _items[_count++];}
+            public T Current { get => _items[_count++];}
             public bool MoveNext()
             {
                 return _count < _size;
@@ -50,7 +50,7 @@ namespace ListImplementation
                 _items = _emptyArray;
             else
             {
-                _items = new int[capacity];
+                _items = new T[capacity];
             }
         }
 
@@ -68,7 +68,7 @@ namespace ListImplementation
                 if (value != _items.Length)
                     if (value > 0)
                     {
-                        int[] newItems = new int[value];
+                        T[] newItems = new T[value];
                         if (_size > 0)
                         {
                             Array.Copy(_items, 0, newItems, 0, _size);
@@ -88,7 +88,7 @@ namespace ListImplementation
                 return _size;
             }
         }
-        public int this[int index]
+        public T this[int index]
         {
             get
             {
@@ -116,7 +116,7 @@ namespace ListImplementation
                 Capacity = newCapacity;
             }
         }
-        public void Add(int item)
+        public void Add(T item)
         {
             if (_size == _items.Length)
                 EnsureCapacity(_size + 1);
@@ -134,7 +134,7 @@ namespace ListImplementation
             _version++;
         }
 
-        public bool Contains(int item)
+        public bool Contains(T item)
         {
             if ((object)item == null)
             {
@@ -149,41 +149,41 @@ namespace ListImplementation
             {
                 for (int i = 0; i < _size; i++)
                 {
-                    if (item == _items[i])
+                    if (item.Equals(_items[i]))
                         return true;
                 }
                 return false;
             }
         }
 
-        public void CopyTo(int[] array)
+        public void CopyTo(T[] array)
         {
             CopyTo(array, 0);
         }
 
-        public void CopyTo(int[] array, int arrayIndex)
+        public void CopyTo(T[] array, int arrayIndex)
         {
             Array.Copy(_items, 0, array, arrayIndex, _size);
         }
 
-        public void CopyTo(int index, int[] array, int arrayIndex, int count)
+        public void CopyTo(int index, T[] array, int arrayIndex, int count)
         {
             if (_size - index < count)
                 throw new ArgumentOutOfRangeException();
             Array.Copy(_items, index, array, arrayIndex, count);
         }
 
-        public int IndexOf(int item)
+        public int IndexOf(T item)
         {
             for (int i = 0; i < _items.Length; i++)
             {
-                if (_items[i] == item)
+                if ( item.Equals(_items[i]))
                     return i;
             }
             return -1;
         }
 
-        public int IndexOf(int item, int index)
+        public int IndexOf(T item, int index)
         {
             if (index > _size)
             {
@@ -192,26 +192,26 @@ namespace ListImplementation
 
             for (int i = index; i < _items.Length; i++)
             {
-                if (_items[i] == item)
+                if (item.Equals(_items[i]))
                     return i;
             }
             return -1;
         }
 
-        public int IndexOf(int item, int index, int count)
+        public int IndexOf(T item, int index, int count)
         {
             if (index + count > _size)
                 throw new ArgumentOutOfRangeException();
 
             for (int i = index; i < index + count; i++)
             {
-                if (_items[i] == item)
+                if (item.Equals(_items[i]))
                     return i;
             }
             return -1;
         }
 
-        public void Insert(int index, int item)
+        public void Insert(int index, T item)
         {
             if (index > _size)
                 throw new ArgumentOutOfRangeException();
@@ -227,7 +227,7 @@ namespace ListImplementation
             _version++;
         }
 
-        public bool Remove(int item)
+        public bool Remove(T item)
         {
             int index = IndexOf(item);
             if (index >= 0)
@@ -244,7 +244,7 @@ namespace ListImplementation
             if (index < _size)
                 Array.Copy(_items, index + 1, _items, index, _size - index);
 
-            _items[_size] = default(int);
+            _items[_size] = default;
             _version++;
         }
 
